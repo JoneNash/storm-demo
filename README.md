@@ -1,5 +1,5 @@
-# storm-example
-storm-example
+# storm-demo
+storm-demo
 
 ## storm-kafka
 

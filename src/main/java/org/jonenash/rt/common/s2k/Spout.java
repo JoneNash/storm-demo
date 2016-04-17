@@ -1,4 +1,4 @@
-package org.tony.storm_kafka.common;
+package org.jonenash.rt.common.s2k;
 
 import backtype.storm.spout.SpoutOutputCollector;
 import backtype.storm.task.TopologyContext;
@@ -8,11 +8,12 @@ import backtype.storm.tuple.Fields;
 import backtype.storm.tuple.Values;
 import backtype.storm.utils.Utils;
 
+import java.text.SimpleDateFormat;
+import java.util.Date;
 import java.util.Map;
 
 /**
- * Created by TonyLee on 2015/1/23.
- * By IDEA
+ * Created by leidelong on 16/4/13.
  */
 public class Spout extends BaseRichSpout {
 
@@ -55,12 +56,11 @@ public class Spout extends BaseRichSpout {
 
     @Override
     public void nextTuple() {
-        for (int i = 0; i < 5; i++) {
-            this.collector.emit(new Values("test","tony--"+i));
-        }
+        Date nowTime=new Date();
+        SimpleDateFormat time=new SimpleDateFormat("yyyy MM dd HH mm ss");
+        this.collector.emit(new Values("test","spout to kafka -- : "+time.format(nowTime)));
         Utils.sleep(2000);
     }
-
     @Override
     public void ack(Object o) {
 

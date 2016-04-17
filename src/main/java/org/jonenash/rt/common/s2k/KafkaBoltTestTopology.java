@@ -1,4 +1,4 @@
-package org.tony.storm_kafka.common;
+package org.jonenash.rt.common.s2k;
 
 import backtype.storm.Config;
 import backtype.storm.LocalCluster;
@@ -15,8 +15,7 @@ import storm.kafka.trident.TridentKafkaState;
 import java.util.Properties;
 
 /**
- * Created by TonyLee on 2015/1/23.
- * By IDEA
+ * Created by leidelong on 16/4/13.
  */
 public class KafkaBoltTestTopology {
 
@@ -30,19 +29,19 @@ public class KafkaBoltTestTopology {
 
         //2. 给KafkaBolt配置topic及前置tuple消息到kafka的mapping关系
         KafkaBolt bolt = new KafkaBolt();
-        bolt.withTopicSelector(new DefaultTopicSelector("tony-S2K"))
-            .withTupleToKafkaMapper(new FieldNameBasedTupleToKafkaMapper());
+        bolt.withTopicSelector(new DefaultTopicSelector("test"))
+                .withTupleToKafkaMapper(new FieldNameBasedTupleToKafkaMapper());
         builder.setBolt("forwardToKafka", bolt, 1).shuffleGrouping("spout");
 
         Config conf = new Config();
         //3. 设置kafka producer的配置
         Properties props = new Properties();
-        props.put("metadata.broker.list", "10.100.90.203:9092");
+        props.put("metadata.broker.list", "127.0.0.1:9092");
         props.put("producer.type","async");
         props.put("request.required.acks", "0"); // 0 ,-1 ,1
         props.put("serializer.class", "kafka.serializer.StringEncoder");
         conf.put(TridentKafkaState.KAFKA_BROKER_PROPERTIES, props);
-        conf.put("topic","tony-S2K");
+        conf.put("topic","s2k-topic");
 
         if(args.length > 0){
             // cluster submit.

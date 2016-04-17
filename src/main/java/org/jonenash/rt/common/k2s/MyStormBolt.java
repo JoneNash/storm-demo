@@ -1,18 +1,20 @@
-package org.tony.storm_kafka.common;
+package org.jonenash.rt.common.k2s;
 
 import backtype.storm.task.OutputCollector;
 import backtype.storm.task.TopologyContext;
 import backtype.storm.topology.OutputFieldsDeclarer;
 import backtype.storm.topology.base.BaseRichBolt;
 import backtype.storm.tuple.Tuple;
+import backtype.storm.tuple.Values;
 
+import java.text.SimpleDateFormat;
+import java.util.Date;
 import java.util.Map;
 
 /**
- * Created by TonyLee on 2015/1/22.
- * By IDEA
+ * Created by leidelong on 16/4/13.
  */
-public class Bolt extends BaseRichBolt {
+public class MyStormBolt extends BaseRichBolt {
     @Override
     public void prepare(Map map, TopologyContext topologyContext, OutputCollector outputCollector) {
 
@@ -20,13 +22,16 @@ public class Bolt extends BaseRichBolt {
 
     @Override
     public void execute(Tuple tuple) {
+        Date nowTime=new Date();
+        SimpleDateFormat time=new SimpleDateFormat("yyyy MM dd HH mm ss");
+
         String log = tuple.getString(0);
-        System.out.println("--->" + log);
-        try {
-            Thread.sleep(100);
-        } catch (InterruptedException e) {
-            e.printStackTrace();
-        }
+        System.out.println("log time :"+time.format(nowTime)+"--->" + log+"---> to storm");
+//        try {
+//            Thread.sleep(100);
+//        } catch (InterruptedException e) {
+//            e.printStackTrace();
+//        }
     }
 
     @Override
