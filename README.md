@@ -3,5 +3,5 @@ storm-demo
 
 
 ## storm-kafka
-1.消费kafka的消息
-2.为kafka生产消息
+1.consume message from kafka
+2.product message to kafka
